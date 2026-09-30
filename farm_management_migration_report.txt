@@ -1,0 +1,37 @@
+FARM MANAGEMENT SYSTEM
+DATABASE MIGRATION REPORT
+============================================================
+Source database: C:\Users\jeand\OneDrive\Desktop\FARM MANAGEMENT ON 28 SEPT\farm_management_system\instance\farm.db
+
+SOURCE RECORD COUNTS
+------------------------------------------------------------
+users: 1
+workers: 2
+animals: 5
+expenses: 11
+income: 3
+ledger_accounts: 5
+health_records: 8
+productions: 14
+labor_activities: 1
+labor_advances: 3
+ledger_entries: 0
+------------------------------------------------------------
+TOTAL: 53
+
+Expected source totals:
+animals: 5
+expenses: 11
+health_records: 8
+income: 3
+labor_activities: 1
+labor_advances: 3
+ledger_accounts: 5
+ledger_entries: 0
+productions: 14
+users: 1
+workers: 2
+TOTAL: 53
+
+The migration preserves the existing primary-key IDs and foreign-key relationships.
+The original farm.db is never modified by this script.

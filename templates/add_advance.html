@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Record Worker Advance{% endblock %}
+{% block content %}
+<div class="form-shell"><div class="form-heading"><span class="eyebrow">PAYROLL</span><h1>Record salary advance</h1><p>The advance is subtracted from the worker's amount owed and remains visible in the financial records.</p></div>
+<form method="POST" class="section-card p-4"><div class="row g-3">
+<div class="col-md-6"><label class="form-label">Worker *</label><select name="worker_id" class="form-select" required><option value="">Select worker</option>{% for w in workers %}<option value="{{ w.id }}">{{ w.full_name }} — {{ w.worker_id }}</option>{% endfor %}</select></div>
+<div class="col-md-6"><label class="form-label">Advance date *</label><input type="date" name="advance_date" class="form-control" required></div>
+<div class="col-md-6"><label class="form-label">Advance amount (RWF) *</label><input name="amount" type="number" min="0.01" step="0.01" class="form-control" required></div>
+<div class="col-12"><label class="form-label">Notes</label><textarea name="notes" class="form-control" rows="3"></textarea></div>
+</div><div class="d-flex justify-content-end gap-2 mt-4"><a href="{{ url_for('labor.labor') }}" class="btn btn-light">Cancel</a><button class="btn btn-primary">Record advance</button></div></form></div>
+{% endblock %}

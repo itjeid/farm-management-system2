@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}AI Farmer Assistant | Farm Manager{% endblock %}
+{% block content %}
+<div class="page-header"><span class="eyebrow">FARM INTELLIGENCE</span><h1>🤖 AI Farmer Assistant</h1><p class="text-muted">Ask questions naturally about cows, production, health, labor, finance or farm decisions.</p></div>
+<div class="row g-4">
+<div class="col-xl-8"><div class="ai-panel p-4 p-lg-5"><div class="d-flex align-items-center gap-3 mb-4"><div class="ai-avatar"><i class="bi bi-robot"></i></div><div><h3 class="mb-1">Farm Manager AI</h3><p class="mb-0 text-muted">Decision support using your recorded farm information.</p></div></div>
+<form method="POST"><label class="form-label fw-semibold">Your question</label><textarea name="question" class="form-control form-control-lg" rows="5" placeholder="Example: Which part of my farm needs attention based on the records?" required>{{ question }}</textarea><button class="btn btn-success btn-lg mt-3"><i class="bi bi-stars me-2"></i>Get intelligent advice</button></form>
+{% if answer %}<div class="ai-answer mt-4"><div class="small fw-bold text-success mb-2"><i class="bi bi-chat-left-text me-1"></i>Farm Manager AI</div><div class="ai-message">{{ answer }}</div></div>{% endif %}
+</div></div>
+<div class="col-xl-4"><div class="section-card h-100"><div class="section-card-head"><h4>Live farm context</h4></div><div class="p-4">
+<div class="context-line"><span>Animals</span><b>{{ context.total_animals }}</b></div><div class="context-line"><span>Cows</span><b>{{ context.cows }}</b></div><div class="context-line"><span>Under treatment</span><b>{{ context.under_treatment }}</b></div><div class="context-line"><span>Milk</span><b>{{ "{:,.2f}".format(context.total_milk_litres) }} L</b></div><div class="context-line"><span>Income</span><b>{{ "{:,.0f}".format(context.total_income_rwf) }} RWF</b></div><div class="context-line"><span>Labor cost</span><b>{{ "{:,.0f}".format(context.labor_cost_rwf) }} RWF</b></div>
+</div></div></div>
+</div>
+<div class="section-card mt-4 p-4"><h5>What you can ask</h5><div class="prompt-pills"><span>🐄 Why is milk production falling?</span><span>🩺 Which animals need attention?</span><span>💰 How is my farm performing financially?</span><span>👷 How much labor remains to be paid?</span><span>🌾 Give me farm-management advice.</span></div></div>
+{% endblock %}
