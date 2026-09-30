@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Labor Management | Farm Manager{% endblock %}
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-end flex-wrap gap-3">
+ <div><span class="eyebrow">PEOPLE & PAYROLL</span><h1>Labor Management</h1><p class="text-muted mb-0">Track work amounts, advances and the balance still owed to each worker.</p></div>
+ <div class="d-flex gap-2"><a href="{{ url_for('labor.add_worker') }}" class="btn btn-success"><i class="bi bi-person-plus me-1"></i>Worker</a><a href="{{ url_for('labor.add_activity') }}" class="btn btn-outline-success"><i class="bi bi-plus-circle me-1"></i>Activity</a><a href="{{ url_for('labor.add_advance') }}" class="btn btn-outline-primary"><i class="bi bi-wallet2 me-1"></i>Advance</a></div>
+</div>
+<div class="row g-3 mb-4">
+ <div class="col-md-4"><div class="metric-card green"><span>Total amount owed</span><strong>{{ "{:,.0f}".format(total_due) }} RWF</strong></div></div>
+ <div class="col-md-4"><div class="metric-card blue"><span>Advances recorded</span><strong>{{ "{:,.0f}".format(total_advances) }} RWF</strong></div></div>
+ <div class="col-md-4"><div class="metric-card orange"><span>Remaining to pay</span><strong>{{ "{:,.0f}".format(total_remaining) }} RWF</strong></div></div>
+</div>
+
+<div class="section-card mb-4">
+ <div class="section-card-head"><div><span class="eyebrow">WORKFORCE</span><h4>Worker balances</h4></div></div>
+ <div class="table-responsive"><table class="table modern-table align-middle mb-0"><thead><tr><th>Worker</th><th>Role</th><th>Status</th><th>Amount owed</th><th>Advance</th><th>Remaining salary</th><th>Action</th></tr></thead><tbody>
+ {% for w in workers %}{% set f=financials[w.id] %}<tr><td><strong>{{ w.full_name }}</strong><small class="d-block text-muted">{{ w.worker_id }}</small></td><td>{{ w.role or '-' }}</td><td><span class="badge {% if w.status=='Active' %}bg-success{% else %}bg-secondary{% endif %}">{{ w.status }}</span></td><td>{{ "{:,.0f}".format(f[0]) }} RWF</td><td>{{ "{:,.0f}".format(f[1]) }} RWF</td><td><strong>{{ "{:,.0f}".format(f[2]) }} RWF</strong></td><td><a href="{{ url_for('admin.edit', section='workers', id=w.id) }}" class="btn btn-sm btn-outline-primary">Edit</a></td></tr>
+ {% else %}<tr><td colspan="7" class="empty">No workers registered.</td></tr>{% endfor %}
+ </tbody></table></div>
+</div>
+
+<div class="row g-4">
+ <div class="col-xl-7"><div class="section-card"><div class="section-card-head"><h4>Labor activities</h4></div><div class="table-responsive"><table class="table modern-table mb-0"><thead><tr><th>Date</th><th>Worker</th><th>Activity</th><th>Labor amount</th><th>Description</th><th>Action</th></tr></thead><tbody>
+ {% for a in activities %}<tr><td>{{ a.activity_date }}</td><td>{{ a.worker.full_name if a.worker else '-' }}</td><td><strong>{{ a.activity }}</strong></td><td class="fw-bold">{{ "{:,.0f}".format(a.payment or 0) }} RWF</td><td>{{ a.description or '-' }}</td><td><a class="btn btn-sm btn-outline-primary" href="{{ url_for('admin.edit',section='labor',id=a.id) }}">Edit</a></td></tr>{% else %}<tr><td colspan="6" class="empty">No activities recorded.</td></tr>{% endfor %}
+ </tbody></table></div></div></div>
+ <div class="col-xl-5"><div class="section-card"><div class="section-card-head"><h4>Recent advances</h4></div><div class="table-responsive"><table class="table modern-table mb-0"><thead><tr><th>Date</th><th>Worker</th><th>Amount</th></tr></thead><tbody>
+ {% for a in advances %}<tr><td>{{ a.advance_date }}</td><td>{{ a.worker.full_name if a.worker else '-' }}</td><td class="fw-bold text-primary">{{ "{:,.0f}".format(a.amount or 0) }} RWF</td></tr>{% else %}<tr><td colspan="3" class="empty">No advances recorded.</td></tr>{% endfor %}
+ </tbody></table></div></div></div>
+</div>
+{% endblock %}

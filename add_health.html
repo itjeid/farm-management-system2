@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add Health Record
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-9">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body p-4">
+
+                <h2 class="mb-4">
+                    🏥 Add Animal Health Record
+                </h2>
+
+
+                {% if not animals %}
+
+                    <div class="alert alert-warning">
+
+                        No animals have been registered.
+
+                        <a
+                            href="{{ url_for(
+                                'livestock.add_animal'
+                            ) }}"
+                        >
+                            Register an animal first.
+                        </a>
+
+                    </div>
+
+                {% else %}
+
+                <form method="POST">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Animal
+                            </label>
+
+                            <select
+                                name="animal_id"
+                                class="form-select"
+                                required
+                            >
+
+                                <option value="">
+                                    Select animal
+                                </option>
+
+                                {% for animal in animals %}
+
+                                    <option
+                                        value="{{ animal.id }}"
+                                    >
+                                        {{ animal.animal_id }}
+                                        -
+                                        {{ animal.animal_type }}
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Date
+                            </label>
+
+                            <input
+                                type="date"
+                                name="record_date"
+                                class="form-control"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Health Status
+                            </label>
+
+                            <select
+                                name="health_status"
+                                class="form-select"
+                                required
+                            >
+
+                                <option value="Healthy">
+                                    Healthy
+                                </option>
+
+                                <option value="Sick">
+                                    Sick
+                                </option>
+
+                                <option value="Under Treatment">
+                                    Under Treatment
+                                </option>
+
+                                <option value="Recovered">
+                                    Recovered
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Signs / Symptoms
+                            </label>
+
+                            <input
+                                type="text"
+                                name="signs"
+                                class="form-control"
+                                placeholder="e.g. loss of appetite"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Vaccination
+                            </label>
+
+                            <input
+                                type="text"
+                                name="vaccination"
+                                class="form-control"
+                                placeholder="e.g. FMD vaccine"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Medicine Used
+                            </label>
+
+                            <input
+                                type="text"
+                                name="medicine_used"
+                                class="form-control"
+                                placeholder="Medicine name"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Veterinarian
+                            </label>
+
+                            <input
+                                type="text"
+                                name="veterinarian"
+                                class="form-control"
+                                placeholder="Veterinarian name"
+                            >
+
+                        </div>
+
+
+                        <div class="col-12">
+
+                            <label class="form-label">
+                                Notes
+                            </label>
+
+                            <textarea
+                                name="notes"
+                                class="form-control"
+                                rows="4"
+                                placeholder="Additional information..."
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-4">
+
+                        <button
+                            type="submit"
+                            class="btn btn-success"
+                        >
+                            Save Health Record
+                        </button>
+
+                        <a
+                            href="{{ url_for(
+                                'health.health'
+                            ) }}"
+                            class="btn btn-secondary"
+                        >
+                            Cancel
+                        </a>
+
+                    </div>
+
+                </form>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

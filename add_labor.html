@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Record Labor Activity{% endblock %}
+{% block content %}
+<div class="form-shell"><div class="form-heading"><span class="eyebrow">LABOR</span><h1>Record labor activity</h1><p>Record the amount the company owes for the activity. Hours and separate payment columns are no longer required.</p></div>
+<form method="POST" class="section-card p-4">
+<div class="row g-3">
+<div class="col-md-6"><label class="form-label">Worker *</label><select name="worker_id" class="form-select" required><option value="">Select worker</option>{% for w in workers %}<option value="{{ w.id }}">{{ w.full_name }} — {{ w.worker_id }}</option>{% endfor %}</select></div>
+<div class="col-md-6"><label class="form-label">Activity date *</label><input type="date" name="activity_date" class="form-control" required></div>
+<div class="col-md-6"><label class="form-label">Activity *</label><input name="activity" class="form-control" placeholder="e.g. Feeding, cleaning, harvesting" required></div>
+<div class="col-md-6"><label class="form-label">Amount owed (RWF) *</label><input name="amount" type="number" min="0" step="0.01" class="form-control" required></div>
+<div class="col-12"><label class="form-label">Description</label><textarea name="description" class="form-control" rows="4" placeholder="Additional details"></textarea></div>
+</div><div class="d-flex justify-content-end gap-2 mt-4"><a href="{{ url_for('labor.labor') }}" class="btn btn-light">Cancel</a><button class="btn btn-success">Save activity</button></div>
+</form></div>
+{% endblock %}

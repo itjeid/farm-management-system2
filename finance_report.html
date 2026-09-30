@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Financial Report | Farm Manager{% endblock %}
+{% block content %}
+<div class="report-page">
+<div class="report-header"><span class="eyebrow">OFFICIAL REPORT</span><h1>Farm Financial Report</h1><p>Generated from the current system records.</p><div class="no-print"><button onclick="window.print()" class="btn btn-dark"><i class="bi bi-printer me-1"></i>Print report</button><a href="{{ url_for('finance.report_pdf') }}" class="btn btn-outline-dark">Download PDF</a></div></div>
+<div class="row g-3 mb-4">
+{% for label,value in [('Total income',total_income),('General expenses',total_expenses),('Labor cost',total_labor),('Net profit / loss',profit)] %}<div class="col-md-3"><div class="report-stat"><span>{{ label }}</span><strong>{{ "{:,.0f}".format(value or 0) }} RWF</strong></div></div>{% endfor %}
+</div>
+<div class="section-card"><div class="section-card-head"><h4>Income transactions</h4></div><div class="table-responsive"><table class="table modern-table"><thead><tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th></tr></thead><tbody>{% for x in incomes %}<tr><td>{{ x.income_date }}</td><td>{{ x.income_type }}</td><td>{{ x.description or '-' }}</td><td>{{ "{:,.0f}".format(x.total_amount or 0) }}</td></tr>{% else %}<tr><td colspan="4" class="empty">No records.</td></tr>{% endfor %}</tbody></table></div></div>
+<div class="section-card mt-4"><div class="section-card-head"><h4>General expenses and labor costs</h4></div><div class="table-responsive"><table class="table modern-table"><thead><tr><th>Date</th><th>Category</th><th>Description</th><th>Amount</th></tr></thead><tbody>{% for x in expenses %}<tr><td>{{ x.expense_date }}</td><td>{{ x.category }}</td><td>{{ x.description or '-' }}</td><td>{{ "{:,.0f}".format(x.amount or 0) }}</td></tr>{% endfor %}{% for x in labor %}<tr><td>{{ x.activity_date }}</td><td>Labor</td><td>{{ x.activity }}</td><td>{{ "{:,.0f}".format(x.payment or 0) }}</td></tr>{% endfor %}</tbody></table></div></div>
+</div>
+{% endblock %}

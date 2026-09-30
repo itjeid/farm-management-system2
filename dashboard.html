@@ -1,0 +1,774 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard | Farm Manager
+{% endblock %}
+
+{% block content %}
+
+<!-- =========================================================
+     DASHBOARD HERO
+========================================================= -->
+
+<div class="hero mb-4">
+
+
+<div>
+
+    <span class="eyebrow">
+        FARM INTELLIGENCE CENTER
+    </span>
+
+    <h1>
+        Good management starts with good data.
+    </h1>
+
+    <p>
+        Monitor your farm, understand performance and act
+        on the most important issues.
+    </p>
+
+</div>
+
+
+<a
+    class="btn btn-success btn-lg"
+    href="{{ url_for('ai.assistant') }}"
+>
+    <i class="bi bi-robot me-2"></i>
+    Ask Farm AI
+</a>
+
+
+</div>
+
+<!-- =========================================================
+     KEY METRICS
+========================================================= -->
+
+<div class="row g-3 mb-4">
+
+
+<!-- TOTAL ANIMALS -->
+
+<div class="col-6 col-md-4 col-xl-3">
+
+    <div class="metric-card green">
+
+        <div class="metric-icon">
+
+            <i class="bi bi-activity"></i>
+
+        </div>
+
+        <span>
+            Total Animals
+        </span>
+
+        <strong>
+            {{ total_animals|default(0, true) }}
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- COWS -->
+
+<div class="col-6 col-md-4 col-xl-3">
+
+    <div class="metric-card blue">
+
+        <div class="metric-icon">
+
+            <i class="bi bi-box-seam"></i>
+
+        </div>
+
+        <span>
+            Cows
+        </span>
+
+        <strong>
+            {{ total_cows|default(0, true) }}
+        </strong>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<!-- MILK -->
+
+<div class="col-6 col-md-4 col-xl-3">
+
+    <div class="metric-card cyan">
+
+        <div class="metric-icon">
+
+            <i class="bi bi-droplet-half"></i>
+
+        </div>
+
+        <span>
+            Milk Production
+        </span>
+
+        <strong>
+            {{ "%.2f"|format(total_milk|default(0, true)) }} L
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- INCOME -->
+
+<div class="col-6 col-md-4 col-xl-3">
+
+    <div class="metric-card green">
+
+        <div class="metric-icon">
+
+            <i class="bi bi-cash-coin"></i>
+
+        </div>
+
+        <span>
+            Total Income
+        </span>
+
+        <strong>
+            {{ "{:,.0f}".format(total_income|default(0, true)) }}
+            RWF
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- EXPENSES -->
+
+<div class="col-6 col-md-4 col-xl-3">
+
+    <div class="metric-card red">
+
+        <div class="metric-icon">
+
+            <i class="bi bi-receipt"></i>
+
+        </div>
+
+        <span>
+            General Expenses
+        </span>
+
+        <strong>
+            {{ "{:,.0f}".format(total_expenses|default(0, true)) }}
+            RWF
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- LABOR COST -->
+
+<div class="col-6 col-md-4 col-xl-3">
+
+    <div class="metric-card purple">
+
+        <div class="metric-icon">
+
+            <i class="bi bi-people"></i>
+
+        </div>
+
+        <span>
+            Labor Cost
+        </span>
+
+        <strong>
+            {{ "{:,.0f}".format(total_labor_cost|default(0, true)) }}
+            RWF
+        </strong>
+
+    </div>
+
+</div>
+
+
+<!-- NET RESULT -->
+
+<div class="col-6 col-md-4 col-xl-3">
+
+    <div class="metric-card gold">
+
+        <div class="metric-icon">
+
+            <i class="bi bi-graph-up-arrow"></i>
+
+        </div>
+
+        <span>
+            Net Result
+        </span>
+
+        <strong>
+            {{ "{:,.0f}".format(net_result|default(0, true)) }}
+            RWF
+        </strong>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<!-- =========================================================
+     AI + QUICK ACTIONS
+========================================================= -->
+
+<div class="row g-4">
+
+
+<!-- AI RECOMMENDATIONS -->
+
+<div class="col-xl-7">
+
+    <div class="section-card h-100">
+
+        <div class="section-card-head">
+
+            <div>
+
+                <span class="eyebrow">
+                    DECISION SUPPORT
+                </span>
+
+                <h4>
+                    AI Farm Recommendations
+                </h4>
+
+            </div>
+
+            <span class="ai-badge">
+
+                <i class="bi bi-stars"></i>
+                Smart
+
+            </span>
+
+        </div>
+
+
+        <div class="card-body p-0">
+
+            {% for r in recommendations %}
+
+            <div class="recommendation-row">
+
+                <div class="rec-icon {{ r.level }}">
+
+                    <i class="bi
+                    {% if r.level == 'urgent' %}
+                        bi-exclamation-triangle
+                    {% elif r.level == 'warning' %}
+                        bi-clock-history
+                    {% elif r.level == 'success' %}
+                        bi-check2-circle
+                    {% else %}
+                        bi-lightbulb
+                    {% endif %}
+                    "></i>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        {{ r.title }}
+                    </strong>
+
+                    <p>
+                        {{ r.text }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% else %}
+
+            <div class="empty p-4">
+
+                <i class="bi bi-stars me-2"></i>
+
+                No recommendations available yet.
+                Add more farm records to receive
+                intelligent recommendations.
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- QUICK ACTIONS -->
+
+<div class="col-xl-5">
+
+    <div class="section-card h-100">
+
+        <div class="section-card-head">
+
+            <div>
+
+                <span class="eyebrow">
+                    QUICK ACTIONS
+                </span>
+
+                <h4>
+                    Record a Transaction
+                </h4>
+
+            </div>
+
+        </div>
+
+
+        <div class="card-body">
+
+            <div class="quick-grid">
+
+
+                <a href="{{ url_for('livestock.add_animal') }}">
+
+                    <i class="bi bi-plus-circle"></i>
+
+                    <span>
+                        Add Animal
+                    </span>
+
+                </a>
+
+
+                <a href="{{ url_for('production.add_production') }}">
+
+                    <i class="bi bi-droplet"></i>
+
+                    <span>
+                        Record Milk
+                    </span>
+
+                </a>
+
+
+                <a href="{{ url_for('finance.add_income') }}">
+
+                    <i class="bi bi-cash"></i>
+
+                    <span>
+                        Add Income
+                    </span>
+
+                </a>
+
+
+                <a href="{{ url_for('expenses.add_expense') }}">
+
+                    <i class="bi bi-receipt"></i>
+
+                    <span>
+                        Add Expense
+                    </span>
+
+                </a>
+
+
+                <a href="{{ url_for('labor.add_activity') }}">
+
+                    <i class="bi bi-person-workspace"></i>
+
+                    <span>
+                        Labor Activity
+                    </span>
+
+                </a>
+
+
+                <a href="{{ url_for('health.add_health') }}">
+
+                    <i class="bi bi-heart-pulse"></i>
+
+                    <span>
+                        Health Record
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<!-- =========================================================
+     RECENT ANIMALS
+========================================================= -->
+
+<div class="row g-4 mt-1">
+
+
+<div class="col-xl-7">
+
+    <div class="section-card">
+
+        <div class="section-card-head">
+
+            <h4>
+                Recently Registered Animals
+            </h4>
+
+            <a href="{{ url_for('livestock.livestock') }}">
+                View All
+            </a>
+
+        </div>
+
+
+        <div class="table-responsive">
+
+            <table class="table modern-table mb-0">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Breed</th>
+                        <th>Gender</th>
+                        <th>Health</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for a in recent_animals %}
+
+                    <tr>
+
+                        <td class="fw-bold">
+                            {{ a.animal_id }}
+                        </td>
+
+                        <td>
+                            {{ a.animal_type }}
+                        </td>
+
+                        <td>
+                            {{ a.breed or '-' }}
+                        </td>
+
+                        <td>
+                            {{ a.gender or '-' }}
+                        </td>
+
+                        <td>
+
+                            <span class="status-badge">
+
+                                {{ a.health_status or 'Healthy' }}
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="empty text-center"
+                        >
+
+                            No animals registered yet.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     RECENT INCOME
+====================================================== -->
+
+<div class="col-xl-5">
+
+    <div class="section-card">
+
+        <div class="section-card-head">
+
+            <h4>
+                Recent Income
+            </h4>
+
+            <a href="{{ url_for('finance.finance') }}">
+                Finance
+            </a>
+
+        </div>
+
+
+        <div class="list-stack">
+
+            {% for i in recent_income %}
+
+            <div class="list-item">
+
+                <div>
+
+                    <strong>
+                        {{ i.income_type }}
+                    </strong>
+
+                    <small>
+
+                        {{ i.income_date }}
+
+                        ·
+
+                        {{ i.description or 'Farm income' }}
+
+                    </small>
+
+                </div>
+
+
+                <b class="text-success">
+
+                    {{ "{:,.0f}".format(i.total_amount or 0) }}
+
+                    RWF
+
+                </b>
+
+            </div>
+
+            {% else %}
+
+            <div class="empty">
+
+                No income records yet.
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<!-- =========================================================
+     HEALTH + LABOR
+========================================================= -->
+
+<div class="row g-4 mt-1">
+
+
+<!-- HEALTH -->
+
+<div class="col-xl-6">
+
+    <div class="section-card">
+
+        <div class="section-card-head">
+
+            <h4>
+                Health Attention
+            </h4>
+
+            <a href="{{ url_for('health.health') }}">
+                Health History
+            </a>
+
+        </div>
+
+
+        <div class="list-stack">
+
+            {% for r in recent_health %}
+
+            <div class="list-item">
+
+                <div>
+
+                    <strong>
+
+                        {{ r.animal.animal_id
+                        if r.animal
+                        else 'Animal' }}
+
+                    </strong>
+
+                    <small>
+
+                        {{ r.record_date }}
+
+                        ·
+
+                        {{ r.health_status }}
+
+                    </small>
+
+                </div>
+
+
+                <span class="status-badge">
+
+                    {{ r.medicine_used or 'Observation' }}
+
+                </span>
+
+            </div>
+
+            {% else %}
+
+            <div class="empty">
+
+                No health records yet.
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- LABOR -->
+
+<div class="col-xl-6">
+
+    <div class="section-card">
+
+        <div class="section-card-head">
+
+            <h4>
+                Farm Activity
+            </h4>
+
+            <a href="{{ url_for('labor.labor') }}">
+                Labor
+            </a>
+
+        </div>
+
+
+        <div class="list-stack">
+
+            {% for a in recent_activities %}
+
+            <div class="list-item">
+
+                <div>
+
+                    <strong>
+
+                        {{ a.worker.full_name
+                        if a.worker
+                        else 'Worker' }}
+
+                    </strong>
+
+                    <small>
+
+                        {{ a.activity_date }}
+
+                        ·
+
+                        {{ a.activity }}
+
+                    </small>
+
+                </div>
+
+
+                <b>
+
+                    {{ "{:,.0f}".format(a.payment or 0) }}
+
+                    RWF
+
+                </b>
+
+            </div>
+
+            {% else %}
+
+            <div class="empty">
+
+                No labor activities yet.
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+{% endblock %}

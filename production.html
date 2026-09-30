@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}
+Milk Production
+{% endblock %}
+
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h1>
+            🥛 Milk Production
+        </h1>
+
+        <p class="text-muted">
+            Record and monitor milk production.
+        </p>
+
+    </div>
+
+    <a
+        href="{{ url_for('production.add_production') }}"
+        class="btn btn-primary"
+    >
+        + Record Production
+    </a>
+
+</div>
+
+
+<div class="card shadow-sm">
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover">
+
+                <thead>
+
+                    <tr>
+                        <th>Date</th>
+                        <th>Animal</th>
+                        <th>Morning</th>
+                        <th>Evening</th>
+                        <th>Total</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for record in productions %}
+
+                    <tr>
+
+                        <td>
+                            {{ record.production_date }}
+                        </td>
+
+                        <td>
+                            {{ record.animal.animal_id }}
+                        </td>
+
+                        <td>
+                            {{ "%.2f"|format(
+                                record.morning_quantity
+                            ) }} L
+                        </td>
+
+                        <td>
+                            {{ "%.2f"|format(
+                                record.evening_quantity
+                            ) }} L
+                        </td>
+
+                        <td class="fw-bold">
+                            {{ "%.2f"|format(
+                                record.total_quantity
+                            ) }} L
+                        </td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="text-center text-muted"
+                        >
+                            No production records found.
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

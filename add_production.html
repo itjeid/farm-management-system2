@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}
+Record Production
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-7">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body p-4">
+
+                <h2 class="mb-4">
+                    🥛 Record Milk Production
+                </h2>
+
+                {% if not animals %}
+
+                    <div class="alert alert-warning">
+
+                        No cows are registered.
+
+                        <a
+                            href="{{ url_for(
+                                'livestock.add_animal'
+                            ) }}"
+                        >
+                            Register a cow first.
+                        </a>
+
+                    </div>
+
+                {% else %}
+
+                <form method="POST">
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Cow
+                        </label>
+
+                        <select
+                            name="animal_id"
+                            class="form-select"
+                            required
+                        >
+
+                            <option value="">
+                                Select cow
+                            </option>
+
+                            {% for animal in animals %}
+
+                                <option
+                                    value="{{ animal.id }}"
+                                >
+                                    {{ animal.animal_id }}
+                                    -
+                                    {{ animal.breed or "Unknown breed" }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Production Date
+                        </label>
+
+                        <input
+                            type="date"
+                            name="production_date"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Morning Quantity (Litres)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="morning_quantity"
+                            class="form-control"
+                            min="0"
+                            step="0.01"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Evening Quantity (Litres)
+                        </label>
+
+                        <input
+                            type="number"
+                            name="evening_quantity"
+                            class="form-control"
+                            min="0"
+                            step="0.01"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Save Production
+                    </button>
+
+                    <a
+                        href="{{ url_for(
+                            'production.production'
+                        ) }}"
+                        class="btn btn-secondary"
+                    >
+                        Cancel
+                    </a>
+
+                </form>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

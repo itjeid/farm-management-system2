@@ -1,0 +1,7 @@
+(() => {
+  const rw = {
+    'Dashboard':'Ikibaho','Livestock':'Inyamaswa','Health':'Ubuzima','Labor':'Abakozi','Production':'Umusaruro','Expenses':'Ibyasohotse','Finance':'Imari','Ledger':"Igitabo cy'ibaruramari",'AI Assistant':'Umufasha wa AI','Admin':'Ubuyobozi','Logout':'Sohoka','Reports':'Raporo','Animal Health':"Ubuzima bw'Inyamaswa",'Workers':'Abakozi','Advances':'Avansi','Cow':'Inka','Cows':'Inka','Healthy':'Ifite ubuzima bwiza','Sick':'Irwaye','Under Treatment':'Irimo kuvurwa','Recovered':'Yakize','Vaccinated':'Yakingiwe','Save':'Bika','Update':'Hindura','Delete':'Siba','Cancel':'Hagarika','Search':'Shakisha','Add':'Ongeramo','Record':'Andika','Date':'Itariki','Amount':'Amafaranga','Total':'Igiteranyo','Income':'Ayinjira','Expense':'Ayasohoka','Labor Cost':"Ikiguzi cy'abakozi",'Remaining Balance':'Amafaranga asigaye','Salary Advance':"Avansi y'umushahara",'Treatment':'Kuvura','Symptoms':'Ibimenyetso','Medicine':'Umuti','Veterinarian':'Veterineri','English':'Icyongereza','Kinyarwanda':'Kinyarwanda','Login':'Injira','Username':'Izina ukoresha','Password':'Ijambobanga'
+  };
+  function translateNode(node){ if(node.nodeType===3){ const t=node.nodeValue.trim(); if(rw[t]) node.nodeValue=node.nodeValue.replace(t,rw[t]); return; } if(node.nodeType===1 && ['SCRIPT','STYLE','NOSCRIPT'].includes(node.tagName)) return; node.childNodes.forEach(translateNode); }
+  if(document.documentElement.lang==='rw') translateNode(document.body);
+})();

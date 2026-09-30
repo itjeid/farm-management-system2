@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b5d3b"/><stop offset="1" stop-color="#75b843"/></linearGradient></defs>
+<rect width="900" height="600" fill="url(#g)"/><circle cx="720" cy="110" r="80" fill="#dff3bd" opacity=".85"/>
+<path d="M0 440 Q170 300 330 430 T650 410 T900 360 V600 H0Z" fill="#083f2b" opacity=".9"/>
+<path d="M90 470 C160 390 250 390 320 470 M320 470 C390 390 480 390 550 470" stroke="#b9dc75" stroke-width="10" fill="none"/>
+<g fill="#e7f6c7"><path d="M150 420c-25-60 30-100 65-35-35-5-50 10-65 35Z"/><path d="M230 455c-10-75 65-90 78-10-28-20-52-13-78 10Z"/><path d="M430 425c-15-65 45-100 72-25-35-12-54 3-72 25Z"/></g>
+<text x="70" y="105" font-family="Arial" font-size="42" font-weight="700" fill="white">SMART FARM</text><text x="70" y="150" font-family="Arial" font-size="22" fill="#e7f6c7">Livestock • Health • Finance • AI</text>
+</svg>
