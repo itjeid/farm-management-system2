@@ -1,87 +1,361 @@
 <!doctype html>
 <html lang="{{ 'rw' if language == 'rw' else 'en' }}">
+
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>{% block title %}Farm Management System{% endblock %}</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+>
+
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+>
+
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  rel="stylesheet"
+>
+
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/style.css') }}"
+>
+
 {% block head %}{% endblock %}
 </head>
+
 <body>
+
 <nav class="navbar navbar-expand-xl navbar-dark farm-navbar sticky-top">
+
   <div class="container-fluid px-3 px-lg-4">
-    <a class="navbar-brand d-flex align-items-center gap-2 fw-800" href="{{ url_for('dashboard.dashboard') }}">
-      <span class="brand-logo">🌾</span><span>Farm Manager</span>
+
+    <a
+      class="navbar-brand d-flex align-items-center gap-2 fw-800"
+      href="{{ url_for('dashboard.dashboard') }}"
+    >
+      <span class="brand-logo">🌾</span>
+      <span>Farm Manager</span>
     </a>
-    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mainNav"><span class="navbar-toggler-icon"></span></button>
+
+    <button
+      class="navbar-toggler"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
     <div class="collapse navbar-collapse" id="mainNav">
+
       <ul class="navbar-nav me-auto gap-xl-1">
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard.dashboard') }}"><i class="bi bi-grid-1x2"></i> {{ t("Dashboard") }}</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('livestock.livestock') }}"><i class="bi bi-heart-pulse"></i> Livestock</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('health.health') }}"><i class="bi bi-shield-plus"></i> Health</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('labor.labor') }}"><i class="bi bi-people"></i> Labor</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('production.production') }}"><i class="bi bi-droplet"></i> Production</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('expenses.expenses') }}"><i class="bi bi-receipt"></i> Expenses</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('finance.finance') }}"><i class="bi bi-cash-stack"></i> Finance</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('ledger.ledger') }}"><i class="bi bi-journal-text"></i> Ledger</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('ai.assistant') }}"><i class="bi bi-robot"></i> {{ t("AI Assistant") }}</a></li><li class="nav-item"><a class="nav-link" href="{{ url_for('ai.disease_check') }}"><i class="bi bi-camera2"></i> AI Health Scan</a></li><li class="nav-item"><a class="nav-link" href="{{ url_for('reports.reports') }}"><i class="bi bi-file-earmark-bar-graph"></i> {{ t("Reports") }}</a></li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('dashboard.dashboard') }}">
+            <i class="bi bi-grid-1x2"></i>
+            {{ t("Dashboard") }}
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('livestock.livestock') }}">
+            <i class="bi bi-heart-pulse"></i>
+            Livestock
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('health.health') }}">
+            <i class="bi bi-shield-plus"></i>
+            Health
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('labor.labor') }}">
+            <i class="bi bi-people"></i>
+            Labor
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('production.production') }}">
+            <i class="bi bi-droplet"></i>
+            Production
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('finance.finance') }}">
+            <i class="bi bi-cash-stack"></i>
+            Finance
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('ledger.ledger') }}">
+            <i class="bi bi-journal-text"></i>
+            Ledger
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('ai.assistant') }}">
+            <i class="bi bi-robot"></i>
+            {{ t("AI Assistant") }}
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('ai.disease_check') }}">
+            <i class="bi bi-camera2"></i>
+            AI Health Scan
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('reports.reports') }}">
+            <i class="bi bi-file-earmark-bar-graph"></i>
+            {{ t("Reports") }}
+          </a>
+        </li>
+
         {% if session.get("role") == "admin" %}
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.index') }}"><i class="bi bi-gear"></i> Admin</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('admin.index') }}">
+            <i class="bi bi-gear"></i>
+            Admin
+          </a>
+        </li>
         {% endif %}
+
       </ul>
+
       {% if session.get("username") %}
-      <div class="language-switch"><a href="{{ url_for('language.change_language',lang='en') }}">EN</a><a href="{{ url_for('language.change_language',lang='rw') }}">RW</a></div><div class="user-chip"><i class="bi bi-person-circle"></i><span>{{ session.get("username") }}</span><small>{{ session.get("role")|title }}</small></div>
-      <a class="btn btn-light btn-sm ms-2" href="{{ url_for('auth.logout') }}">{{ t("Logout") }}</a>
+
+      <div class="language-switch">
+        <a href="{{ url_for('language.change_language', lang='en') }}">EN</a>
+        <a href="{{ url_for('language.change_language', lang='rw') }}">RW</a>
+      </div>
+
+      <div class="user-chip">
+        <i class="bi bi-person-circle"></i>
+        <span>{{ session.get("username") }}</span>
+        <small>{{ session.get("role")|title }}</small>
+      </div>
+
+      <a
+        class="btn btn-light btn-sm ms-2"
+        href="{{ url_for('auth.logout') }}"
+      >
+        {{ t("Logout") }}
+      </a>
+
       {% endif %}
+
     </div>
   </div>
 </nav>
 
+
 <main class="page-container">
+
   {% with messages = get_flashed_messages(with_categories=true) %}
+
     {% for category, message in messages %}
-    <div class="alert alert-{{ category }} alert-dismissible fade show app-alert shadow-sm" role="alert">
-      <i class="bi {% if category == 'success' %}bi-check-circle{% elif category == 'danger' %}bi-exclamation-octagon{% else %}bi-info-circle{% endif %} me-2"></i>{{ message }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+
+    <div
+      class="alert alert-{{ category }} alert-dismissible fade show app-alert shadow-sm"
+      role="alert"
+    >
+
+      <i
+        class="bi
+        {% if category == 'success' %}
+          bi-check-circle
+        {% elif category == 'danger' %}
+          bi-exclamation-octagon
+        {% else %}
+          bi-info-circle
+        {% endif %}
+        me-2"
+      ></i>
+
+      {{ message }}
+
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+      ></button>
+
     </div>
+
     {% endfor %}
+
   {% endwith %}
+
   {% block content %}{% endblock %}
+
 </main>
 
+
 <footer class="farm-footer">
+
   <div class="container-fluid px-3 px-lg-5">
+
     <div class="row g-4">
+
       <div class="col-lg-4 col-md-6">
-        <div class="footer-brand"><div class="footer-logo">🌱</div><div><h4>Farm Management System</h4><p>Smart management for modern farming.</p></div></div>
-        <p class="footer-description">A connected platform for livestock, production, health, labor, finance, accounting and AI-supported farm decisions.</p>
-        <div class="footer-socials">
-          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
-          <a href="#" aria-label="X"><i class="bi bi-twitter-x"></i></a>
-          <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+
+        <div class="footer-brand">
+
+          <div class="footer-logo">🌱</div>
+
+          <div>
+            <h4>Farm Management System</h4>
+            <p>Smart management for modern farming.</p>
+          </div>
+
         </div>
+
+        <p class="footer-description">
+          A connected platform for livestock, production, health,
+          labor, finance, accounting and AI-supported farm decisions.
+        </p>
+
+        <div class="footer-socials">
+
+          <a href="#" aria-label="Facebook">
+            <i class="bi bi-facebook"></i>
+          </a>
+
+          <a href="#" aria-label="Instagram">
+            <i class="bi bi-instagram"></i>
+          </a>
+
+          <a href="#" aria-label="X">
+            <i class="bi bi-twitter-x"></i>
+          </a>
+
+          <a href="#" aria-label="YouTube">
+            <i class="bi bi-youtube"></i>
+          </a>
+
+          <a href="#" aria-label="LinkedIn">
+            <i class="bi bi-linkedin"></i>
+          </a>
+
+        </div>
+
       </div>
-      <div class="col-lg-2 col-md-6"><h5>Quick access</h5>
-        <a href="{{ url_for('dashboard.dashboard') }}">Dashboard</a><a href="{{ url_for('livestock.livestock') }}">{{ t("Livestock") }}</a><a href="{{ url_for('health.health') }}">Animal Health</a><a href="{{ url_for('production.production') }}">{{ t("Production") }}</a>
+
+
+      <div class="col-lg-2 col-md-6">
+
+        <h5>Quick access</h5>
+
+        <a href="{{ url_for('dashboard.dashboard') }}">
+          Dashboard
+        </a>
+
+        <a href="{{ url_for('livestock.livestock') }}">
+          {{ t("Livestock") }}
+        </a>
+
+        <a href="{{ url_for('health.health') }}">
+          Animal Health
+        </a>
+
+        <a href="{{ url_for('production.production') }}">
+          {{ t("Production") }}
+        </a>
+
       </div>
-      <div class="col-lg-3 col-md-6"><h5>Management</h5>
-        <a href="{{ url_for('labor.labor') }}">Labor & advances</a><a href="{{ url_for('expenses.expenses') }}">{{ t("Expenses") }}</a><a href="{{ url_for('finance.finance') }}">Finance & reports</a><a href="{{ url_for('ledger.ledger') }}">General ledger</a>
+
+
+      <div class="col-lg-3 col-md-6">
+
+        <h5>Management</h5>
+
+        <a href="{{ url_for('labor.labor') }}">
+          Labor & advances
+        </a>
+
+        <a href="{{ url_for('finance.finance') }}">
+          Finance & expenses
+        </a>
+
+        <a href="{{ url_for('ledger.ledger') }}">
+          General ledger
+        </a>
+
       </div>
-      <div class="col-lg-3 col-md-6"><h5>Intelligence</h5>
-        <p><i class="bi bi-robot me-2"></i>AI recommendations</p><p><i class="bi bi-chat-dots me-2"></i>Farmer AI assistant</p><p><i class="bi bi-shield-check me-2"></i>Admin data control</p><p><i class="bi bi-database-check me-2"></i>Connected records</p>
+
+
+      <div class="col-lg-3 col-md-6">
+
+        <h5>Intelligence</h5>
+
+        <p>
+          <i class="bi bi-robot me-2"></i>
+          AI recommendations
+        </p>
+
+        <p>
+          <i class="bi bi-chat-dots me-2"></i>
+          Farmer AI assistant
+        </p>
+
+        <p>
+          <i class="bi bi-shield-check me-2"></i>
+          Admin data control
+        </p>
+
+        <p>
+          <i class="bi bi-database-check me-2"></i>
+          Connected records
+        </p>
+
       </div>
+
     </div>
+
     <hr>
-    <div class="footer-bottom"><span>© {{ now.year }} Farm Management System. All Rights Reserved.</span><span>🌱 Smart Farming <b>·</b> Built for better farm management</span></div>
+
+    <div class="footer-bottom">
+
+      <span>
+        © {{ now.year }} Farm Management System.
+        All Rights Reserved.
+      </span>
+
+      <span>
+        🌱 Smart Farming
+        <b>·</b>
+        Built for better farm management
+      </span>
+
+    </div>
+
   </div>
+
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script src="{{ url_for('static', filename='js/i18n.js') }}"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/i18n.js') }}"></script>
+
 {% block scripts %}{% endblock %}
+
 </body>
 </html>
